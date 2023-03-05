@@ -18,10 +18,10 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   addAuthToken(request: HttpRequest<any>) {
-    let token = '';
-    this.authService.getAuthToken().subscribe(res => {
-      token = res?.toString() ?? '';
-    });
+    let token = '2860ace0-9d90-478d-920d-a0a5fde1da8b';
+    // this.authService.getAuthToken().subscribe(res => {
+    //   token = res?.toString() ?? '';
+    // });
     return request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`

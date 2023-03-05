@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ExploreMainDrawerComponent implements OnInit {
   appThemeName: string = environment.appThemeName;
-  appPurchaseUrl: string = environment.appPurchaseUrl;
-  appPreviewUrl: string = environment.appPreviewUrl;
+  appPurchaseUrl: string = environment.apiUrl;
+  appPreviewUrl: string = environment.apiUrl;
   appDemos = environment.appDemos;
 
   constructor() {

@@ -1,0 +1,94 @@
+<div class="card card-custom card-stretch gutter-b">
+  <div class="card-header border-0 py-5">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="card-label font-weight-bolder text-dark">
+        {{ "Project Studies" }}</span>
+      <span class="text-muted mt-3 font-weight-bold font-size-sm"></span>
+    </h3>
+    <div class="card-toolbar">
+      <a class="btn btn-danger font-weight-bolder font-size-sm cursor-pointer" (click)="createStudy()">{{ "Create Study" }}</a>
+    </div>
+  </div>
+
+  <div class="card-body pt-0 pb-3">
+    <div class="tab-content">
+      <div class="table-responsive">
+        <div class="card-body py-3">
+          <div class="table-responsive">
+            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+              <thead>
+                <tr class="fw-bolder text-muted">
+                  <th class="min-w-140px">Study Identifier</th>
+                  <th class="min-w-120px">Name</th>
+                  <th class="min-w-120px">Description</th>
+                  <th class="min-w-150px">Organization</th>
+                </tr>
+              </thead>
+
+              <div *ngIf="(studies$ | async) === null || undefined">
+                <h5>Loading...</h5>
+              </div>
+              <div class="primeng-no-data" *ngIf="(studies$ | async)?.totalCount === 0">
+                {{ "No Data" }}
+              </div>
+              <tbody *ngIf="studies$ | async">
+                <tr *ngFor="let item of (studies$ | async)?.items">
+
+                  <td>
+                    <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      {{ item?.studyId }}
+                    </a>
+                    <span class="text-muted fw-bold text-muted d-block fs-7">
+                      Recurrent: {{ 'Info' }}
+                    </span>
+                  </td>
+
+                  <td>
+                    <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      {{ item?.name }}
+                    </a>
+                    <span class="text-muted fw-bold text-muted d-block fs-7">
+                    </span>
+                  </td>
+
+                  <td>
+                    <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      {{ item?.description }}
+                    </a>
+                    <span class="text-muted fw-bold text-muted d-block fs-7">
+                    </span>
+                  </td>
+
+                  <td>
+                    <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      {{ item?.organization }}
+                    </a>
+                  </td>
+
+                  <td>
+                    <div class="d-flex justify-content-end flex-shrink-0">
+                      <a [routerLink]="[
+                          '/projects/activity',
+                          item?.projectTask?.id
+                        ]" routerLinkActive="router-link-active"
+                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                        <span [inlineSVG]="
+                            './assets/media/icons/duotune/art/art005.svg'
+                          " class="svg-icon svg-icon-3"></span>
+                      </a>
+                      <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                        <span [inlineSVG]="
+                            './assets/media/icons/duotune/general/gen027.svg'
+                          " class="svg-icon svg-icon-3"></span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

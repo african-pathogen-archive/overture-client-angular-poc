@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ClipboardModule } from 'ngx-clipboard';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +13,15 @@ import { AuthService } from './modules/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
+import { SharedModule } from './shared/shared.module';
+import { API_BASE_URL } from 'nswag/song/song-service-proxies';
+import { AuthInterceptor } from './shared/util/interceptor';
 // #fake-end#
+
+
+// export function getRemoteServiceBaseUrl(): string {
+//   return environment.remoteSongServiceBaseUrl;
+// }
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -32,6 +40,7 @@ function appInitializer(authService: AuthService) {
     TranslateModule.forRoot(),
     HttpClientModule,
     ClipboardModule,
+    SharedModule,
     // #fake-start#
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
@@ -45,12 +54,14 @@ function appInitializer(authService: AuthService) {
     NgbModule,
   ],
   providers: [
+    // { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,
       multi: true,
       deps: [AuthService],
     },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

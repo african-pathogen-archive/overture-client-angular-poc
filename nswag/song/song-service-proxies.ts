@@ -13,7 +13,6 @@ import { Observable, throwError as _observableThrow, of as _observableOf } from 
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
-export module SongServiceProxy {
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 
@@ -111,6 +110,13 @@ export class Analysis implements IAnalysis {
         data["updatedAt"] = this.updatedAt ? this.updatedAt.toISOString() : <any>undefined;
         return data;
     }
+
+    clone(): Analysis {
+        const json = this.toJSON();
+        let result = new Analysis();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IAnalysis {
@@ -175,6 +181,13 @@ export class AnalysisStateChange implements IAnalysisStateChange {
         data["updatedState"] = this.updatedState;
         return data;
     }
+
+    clone(): AnalysisStateChange {
+        const json = this.toJSON();
+        let result = new AnalysisStateChange();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IAnalysisStateChange {
@@ -234,6 +247,13 @@ export class AnalysisType implements IAnalysisType {
         data["version"] = this.version;
         return data;
     }
+
+    clone(): AnalysisType {
+        const json = this.toJSON();
+        let result = new AnalysisType();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IAnalysisType {
@@ -287,6 +307,13 @@ export class AnalysisTypeId implements IAnalysisTypeId {
         data["name"] = this.name;
         data["version"] = this.version;
         return data;
+    }
+
+    clone(): AnalysisTypeId {
+        const json = this.toJSON();
+        let result = new AnalysisTypeId();
+        result.init(json);
+        return result;
     }
 }
 
@@ -358,6 +385,13 @@ export class CompositeEntity implements ICompositeEntity {
         data["submitterSampleId"] = this.submitterSampleId;
         return data;
     }
+
+    clone(): CompositeEntity {
+        const json = this.toJSON();
+        let result = new CompositeEntity();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ICompositeEntity {
@@ -424,6 +458,13 @@ export class Donor implements IDonor {
         data["studyId"] = this.studyId;
         data["submitterDonorId"] = this.submitterDonorId;
         return data;
+    }
+
+    clone(): Donor {
+        const json = this.toJSON();
+        let result = new Donor();
+        result.init(json);
+        return result;
     }
 }
 
@@ -500,6 +541,13 @@ export class DonorWithSpecimens implements IDonorWithSpecimens {
         data["submitterDonorId"] = this.submitterDonorId;
         return data;
     }
+
+    clone(): DonorWithSpecimens {
+        const json = this.toJSON();
+        let result = new DonorWithSpecimens();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IDonorWithSpecimens {
@@ -563,6 +611,13 @@ export class ExportedPayload implements IExportedPayload {
         }
         data["studyId"] = this.studyId;
         return data;
+    }
+
+    clone(): ExportedPayload {
+        const json = this.toJSON();
+        let result = new ExportedPayload();
+        result.init(json);
+        return result;
     }
 }
 
@@ -639,6 +694,13 @@ export class FileDTO implements IFileDTO {
         data["objectId"] = this.objectId;
         data["studyId"] = this.studyId;
         return data;
+    }
+
+    clone(): FileDTO {
+        const json = this.toJSON();
+        let result = new FileDTO();
+        result.init(json);
+        return result;
     }
 }
 
@@ -724,6 +786,13 @@ export class FileEntity implements IFileEntity {
         data["studyId"] = this.studyId;
         return data;
     }
+
+    clone(): FileEntity {
+        const json = this.toJSON();
+        let result = new FileEntity();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IFileEntity {
@@ -793,6 +862,13 @@ export class FileUpdateRequest implements IFileUpdateRequest {
         data["info"] = this.info ? this.info.toJSON() : <any>undefined;
         return data;
     }
+
+    clone(): FileUpdateRequest {
+        const json = this.toJSON();
+        let result = new FileUpdateRequest();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IFileUpdateRequest {
@@ -857,6 +933,13 @@ export class FileUpdateResponse implements IFileUpdateResponse {
         data["unpublishedAnalysis"] = this.unpublishedAnalysis;
         return data;
     }
+
+    clone(): FileUpdateResponse {
+        const json = this.toJSON();
+        let result = new FileUpdateResponse();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IFileUpdateResponse {
@@ -908,6 +991,13 @@ export class GenericMessage implements IGenericMessage {
         }
         data["message"] = this.message;
         return data;
+    }
+
+    clone(): GenericMessage {
+        const json = this.toJSON();
+        let result = new GenericMessage();
+        result.init(json);
+        return result;
     }
 }
 
@@ -969,6 +1059,13 @@ export class IdSearchRequest implements IIdSearchRequest {
         data["sampleId"] = this.sampleId;
         data["specimenId"] = this.specimenId;
         return data;
+    }
+
+    clone(): IdSearchRequest {
+        const json = this.toJSON();
+        let result = new IdSearchRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1085,6 +1182,13 @@ export class JsonNode implements IJsonNode {
         data["valueNode"] = this.valueNode;
         return data;
     }
+
+    clone(): JsonNode {
+        const json = this.toJSON();
+        let result = new JsonNode();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IJsonNode {
@@ -1165,6 +1269,13 @@ export class Legacy implements ILegacy {
         data["projectCode"] = this.projectCode;
         return data;
     }
+
+    clone(): Legacy {
+        const json = this.toJSON();
+        let result = new Legacy();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ILegacy {
@@ -1234,6 +1345,13 @@ export class PageDTO_AnalysisType implements IPageDTO_AnalysisType {
         }
         return data;
     }
+
+    clone(): PageDTO_AnalysisType {
+        const json = this.toJSON();
+        let result = new PageDTO_AnalysisType();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IPageDTO_AnalysisType {
@@ -1287,6 +1405,13 @@ export class RegisterAnalysisTypeRequest implements IRegisterAnalysisTypeRequest
         data["name"] = this.name;
         data["schema"] = this.schema ? this.schema.toJSON() : <any>undefined;
         return data;
+    }
+
+    clone(): RegisterAnalysisTypeRequest {
+        const json = this.toJSON();
+        let result = new RegisterAnalysisTypeRequest();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1351,6 +1476,13 @@ export class Sample implements ISample {
         data["specimenId"] = this.specimenId;
         data["submitterSampleId"] = this.submitterSampleId;
         return data;
+    }
+
+    clone(): Sample {
+        const json = this.toJSON();
+        let result = new Sample();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1422,6 +1554,13 @@ export class Specimen implements ISpecimen {
         data["submitterSpecimenId"] = this.submitterSpecimenId;
         data["tumourNormalDesignation"] = this.tumourNormalDesignation;
         return data;
+    }
+
+    clone(): Specimen {
+        const json = this.toJSON();
+        let result = new Specimen();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1509,6 +1648,13 @@ export class SpecimenWithSamples implements ISpecimenWithSamples {
         data["tumourNormalDesignation"] = this.tumourNormalDesignation;
         return data;
     }
+
+    clone(): SpecimenWithSamples {
+        const json = this.toJSON();
+        let result = new SpecimenWithSamples();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ISpecimenWithSamples {
@@ -1576,6 +1722,13 @@ export class Study implements IStudy {
         data["organization"] = this.organization;
         data["studyId"] = this.studyId;
         return data;
+    }
+
+    clone(): Study {
+        const json = this.toJSON();
+        let result = new Study();
+        result.init(json);
+        return result;
     }
 }
 
@@ -1652,6 +1805,13 @@ export class StudyWithDonors implements IStudyWithDonors {
         data["studyId"] = this.studyId;
         return data;
     }
+
+    clone(): StudyWithDonors {
+        const json = this.toJSON();
+        let result = new StudyWithDonors();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IStudyWithDonors {
@@ -1708,6 +1868,13 @@ export class SubmitResponse implements ISubmitResponse {
         data["status"] = this.status;
         return data;
     }
+
+    clone(): SubmitResponse {
+        const json = this.toJSON();
+        let result = new SubmitResponse();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface ISubmitResponse {
@@ -1754,6 +1921,13 @@ export class Anonymous implements IAnonymous {
         }
         return data;
     }
+
+    clone(): Anonymous {
+        const json = this.toJSON();
+        let result = new Anonymous();
+        result.init(json);
+        return result;
+    }
 }
 
 export interface IAnonymous {
@@ -1785,4 +1959,3 @@ export enum JsonNodeNodeType {
     STRING = "STRING",
 }
 
-}

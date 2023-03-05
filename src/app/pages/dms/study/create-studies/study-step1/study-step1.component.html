@@ -1,0 +1,75 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder d-flex align-items-center text-dark">
+    Study Info
+    <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Pick the best option that describes the company"></i>
+  </h2>
+
+</div>
+
+<div class="fv-row" [formGroup]="form">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="mb-10 fv-row">
+        <label class="form-label mb-3 ">Study Identitifier</label>
+        <textarea rows="2" formControlName="studyId" type="text"
+          class="form-control form-control-lg form-control-solid"></textarea>
+        <div *ngIf="
+          form.get('studyId')?.hasError('required') &&
+          form.get('studyId')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+          StudyId required
+        </div>
+      </div>
+
+      <div class="mb-10 fv-row">
+        <label class="form-label mb-3 ">Description</label>
+        <textarea rows="2" formControlName="description" type="text"
+          class="form-control form-control-lg form-control-solid"></textarea>
+        <div *ngIf="
+          form.get('description')?.hasError('required') &&
+          form.get('description')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+          Description required
+        </div>
+      </div>
+
+
+      <div class="mb-10 fv-row">
+        <label class="form-label mb-3 ">Name</label>
+        <textarea rows="2" formControlName="name" type="text"
+          class="form-control form-control-lg form-control-solid"></textarea>
+        <div *ngIf="
+          form.get('name')?.hasError('required') &&
+          form.get('name')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+          Name required
+        </div>
+      </div>
+
+
+      <div class="mb-10 fv-row">
+        <label class="form-label mb-3 ">Organization</label>
+        <textarea rows="2" formControlName="organization" type="text"
+          class="form-control form-control-lg form-control-solid"></textarea>
+        <div *ngIf="
+          form.get('organization')?.hasError('required') &&
+          form.get('organization')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+          Organization required
+        </div>
+      </div>
+
+      <div class="mb-10 fv-row">
+        <label class="form-label mb-3 ">Notes</label>
+        <textarea rows="2" formControlName="notes" type="text"
+          class="form-control form-control-lg form-control-solid"></textarea>
+      </div>
+
+
+    </div>
+
+    <div class="fv-plugins-message-container invalid-feedback">
+    </div>
+  </div>
+</div>
