@@ -1,0 +1,9 @@
+<h3 *ngIf="error" style="margin-top: 2px; color: white">
+  <mat-icon style="vertical-align: text-top">warning</mat-icon> ERROR!
+</h3>
+<h3 *ngIf="!error" style="margin-top: 2px; color: #4a4a4a">
+  <mat-icon style="vertical-align: text-top">notifications</mat-icon>
+  Notification
+</h3>
+
+<span>{{ message }}</span>
