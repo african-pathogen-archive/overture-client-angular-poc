@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
 import { SharedModule } from './shared/shared.module';
-import { API_BASE_URL } from 'nswag/song/song-service-proxies';
 import { AuthInterceptor } from './shared/util/interceptor';
 // #fake-end#
 
@@ -54,7 +53,6 @@ function appInitializer(authService: AuthService) {
     NgbModule,
   ],
   providers: [
-    // { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

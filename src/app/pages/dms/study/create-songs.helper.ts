@@ -1,13 +1,13 @@
-import { IStudy } from 'nswag/song/song-service-proxies';
+import { JsonNode, Study } from "nswag/song";
 
-interface ICreateSong extends IStudy {}
+interface ICreateSong extends Study {}
 
 const song_inits: ICreateSong = {
   description: '',
   name: '',
   organization: '',
   studyId: '',
-  info: undefined,
+  info: {} as JsonNode,
 };
 
 export { ICreateSong, song_inits };

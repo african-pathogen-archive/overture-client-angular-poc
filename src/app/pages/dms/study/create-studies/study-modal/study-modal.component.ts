@@ -2,10 +2,9 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Study } from 'nswag/song/song-service-proxies';
+import { Study, StudyService } from 'nswag/song';
 import { BehaviorSubject, Subscription, finalize } from 'rxjs';
 import { PassProjectToModal } from 'src/app/shared/util/models';
-import { StudiesServiceProxy } from 'src/services/study.service';
 import { ICreateSong, song_inits } from '../../create-songs.helper';
 
 @Component({
@@ -24,12 +23,12 @@ export class StudyModalComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
   saving: boolean;
 
-  study: Study = new Study();
+  study = {} as Study;
 
   constructor(
     public dialogRef: MatDialogRef<StudyModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PassProjectToModal,
-    private service: StudiesServiceProxy,
+    private _service: StudyService,
     private fb: FormBuilder,
     private route: ActivatedRoute
   ) {}
@@ -55,10 +54,10 @@ export class StudyModalComponent implements OnInit, OnDestroy {
     this.study.info = currentStudy.info;
     this.study.name = currentStudy.name;
     this.study.organization = currentStudy.organization;
-    this.study.studyId = currentStudy.studyId;
+    this.study.studyId = currentStudy.studyId ?? "";
 
-    const sub = this.service
-      .createOrEdit(this.study)
+    const sub = this._service
+      .saveStudyUsingPOST(this.study.studyId , this.study)
       .pipe(
         finalize(() => {
           this.saving = false;

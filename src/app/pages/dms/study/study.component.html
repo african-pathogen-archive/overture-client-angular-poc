@@ -25,18 +25,18 @@
                 </tr>
               </thead>
 
-              <div *ngIf="(studies$ | async) === null || undefined">
+              <div *ngIf="loading">
                 <h5>Loading...</h5>
               </div>
-              <div class="primeng-no-data" *ngIf="(studies$ | async)?.totalCount === 0">
+              <!-- <div class="primeng-no-data" *ngIf="!loading">
                 {{ "No Data" }}
-              </div>
-              <tbody *ngIf="studies$ | async">
-                <tr *ngFor="let item of (studies$ | async)?.items">
+              </div> -->
+              <tbody *ngIf="!loading">
+                <tr *ngFor="let item of studies">
 
                   <td>
                     <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
-                      {{ item?.studyId }}
+                      {{ item.studyId }}
                     </a>
                     <span class="text-muted fw-bold text-muted d-block fs-7">
                       Recurrent: {{ 'Info' }}
@@ -69,7 +69,7 @@
                     <div class="d-flex justify-content-end flex-shrink-0">
                       <a [routerLink]="[
                           '/projects/activity',
-                          item?.projectTask?.id
+                          'item?.projectTask?.id'
                         ]" routerLinkActive="router-link-active"
                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span [inlineSVG]="

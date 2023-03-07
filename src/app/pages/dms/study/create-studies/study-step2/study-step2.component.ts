@@ -2,7 +2,6 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { StudiesServiceProxy } from 'src/services/study.service';
 import { ICreateSong } from '../../create-songs.helper';
 
 @Component({
@@ -23,7 +22,6 @@ export class StudyStep2Component implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private _service: StudiesServiceProxy,
     private route: ActivatedRoute
   ) {}
 

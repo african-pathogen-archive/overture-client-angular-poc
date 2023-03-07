@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { StudyService } from 'nswag/song';
 import { Subscription } from 'rxjs';
-import { StudiesServiceProxy } from 'src/services/study.service';
 import { ICreateSong } from '../../create-songs.helper';
 
 @Component({
@@ -21,7 +21,7 @@ export class StudyStep1Component implements OnInit, OnDestroy {
 
   public form: FormGroup;
 
-  constructor(private _service: StudiesServiceProxy, private fb: FormBuilder) {}
+  constructor(private _service: StudyService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initForm();
