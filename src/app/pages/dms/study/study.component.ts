@@ -15,6 +15,7 @@ import {
   of as _observableOf,
 } from 'rxjs';
 import { HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { SubmitAnalysisModalComponent } from './submit-analysis-modal/submit-analysis-modal.component';
 
 @Component({
   selector: 'app-study',
@@ -60,31 +61,49 @@ export class StudyComponent implements OnInit {
 
           if (studyItems.length > 0) {
             studyItems.forEach((studyId: string) => {
-                this._service.getEntireStudyUsingGET(studyId, 'body').subscribe(fullStudyRes => {
+              this._service
+                .getEntireStudyUsingGET(studyId, 'body')
+                .subscribe((fullStudyRes) => {
                   blobToText(fullStudyRes).subscribe((result200) => {
                     let study200: Study = JSON.parse(result200);
                     this.studies.push(study200);
-      this.cdr.detectChanges();
-
+                    this.cdr.detectChanges();
                   });
-                })
+                });
             });
           }
         });
       });
   }
 
-  createStudy(): void {
+  openSubmitAnalysisModal(studyId: string) {
     const data: PassProjectToModal = {
-      projectId: 0,
+      studyId: studyId,
     };
-    const dialogRef = this.dialog.open(StudyModalComponent, {
+    const dialogRef = this.dialog.open(SubmitAnalysisModalComponent, {
       minWidth: '900px',
-      minHeight: '500px',
+      minHeight: '700px',
       data: data,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      this.studies = [];
+      this.getStudies();
+    });
+  }
+
+  createStudy(): void {
+    const data: PassProjectToModal = {
+      studyId: '',
+    };
+    const dialogRef = this.dialog.open(StudyModalComponent, {
+      minWidth: '900px',
+      minHeight: '700px',
+      data: data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.studies = [];
       this.getStudies();
     });
   }

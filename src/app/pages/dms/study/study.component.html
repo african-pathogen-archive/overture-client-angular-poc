@@ -67,10 +67,7 @@
 
                   <td>
                     <div class="d-flex justify-content-end flex-shrink-0">
-                      <a [routerLink]="[
-                          '/projects/activity',
-                          'item?.projectTask?.id'
-                        ]" routerLinkActive="router-link-active"
+                      <a (click)="openSubmitAnalysisModal(item.studyId ?? '')"
                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span [inlineSVG]="
                             './assets/media/icons/duotune/art/art005.svg'

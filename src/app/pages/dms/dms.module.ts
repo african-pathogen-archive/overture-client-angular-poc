@@ -19,7 +19,9 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CardsModule, WidgetsModule } from 'src/app/_metronic/partials';
 import { ApiServiceModule } from 'src/services/api-service.module';
-
+import { SubmitAnalysisModalComponent } from './study/submit-analysis-modal/submit-analysis-modal.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
+import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-upload/analysis-upload.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ApiServiceModule } from 'src/services/api-service.module';
     StudyModalComponent,
     StudyStep2Component,
     StudyStep3Component,
-    StudyStep1Component
+    StudyStep1Component,
+    SubmitAnalysisModalComponent,
+    AnalysisUploadComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +52,8 @@ import { ApiServiceModule } from 'src/services/api-service.module';
     LayoutModule,
     SharedModule,
     InlineSVGModule,
+    AngularFileUploaderModule
+
   ],
 })
 export class DmsModule { }

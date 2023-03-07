@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudyService } from 'nswag/song';
-// import { SongService } from './song.service';
-// import { StudiesServiceProxy } from './study.service';
+import { StudyService, SubmitService } from 'nswag/song';
 
 @NgModule({
   declarations: [],
   imports: [CommonModule],
-  providers: [StudyService],
+  providers: [StudyService, SubmitService],
 })
 export class ApiServiceModule {}

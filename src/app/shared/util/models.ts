@@ -8,5 +8,5 @@ export interface MessageInfo {
 }
 
 export interface PassProjectToModal {
-  projectId: number;
+  studyId: string;
 }
