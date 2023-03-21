@@ -66,12 +66,15 @@
             <div class="stepper-label">
               <h3 class="stepper-title">Create Manifest for Score</h3>
               <div class="stepper-desc fw-bold">
-               Create Manifest
+                Create Manifest
               </div>
             </div>
           </div>
 
-          <div class="stepper-item" [ngClass]="{ current: currentStep$.value === 3 }">
+          <div class="stepper-item" [ngClass]="{
+            current: currentStep$.value === 3,
+            completed: currentStep$.value > 3
+          }">
             <div class="stepper-line w-40px"></div>
 
             <div class="stepper-icon w-40px h-40px">
@@ -80,10 +83,27 @@
             </div>
 
             <div class="stepper-label">
+              <h3 class="stepper-title">Publish Analysis & Index Study</h3>
+              <div class="stepper-desc fw-bold"> Publish your analysis so that it can be indexed into Elasticsearch.
+              </div>
+            </div>
+          </div>
+
+
+          <div class="stepper-item" [ngClass]="{ current: currentStep$.value === 4 }">
+            <div class="stepper-line w-40px"></div>
+
+            <div class="stepper-icon w-40px h-40px">
+              <i class="stepper-check fas fa-check"></i>
+              <span class="stepper-number">4</span>
+            </div>
+
+            <div class="stepper-label">
               <h3 class="stepper-title">Completed</h3>
               <div class="stepper-desc fw-bold">Complete, record created.</div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -92,45 +112,68 @@
       <form class="py-20 w-100 w-xl-700px px-9" noValidate id="kt_create_account_form">
         <div class="current">
           <ng-container *ngIf="currentStep$.value === 1">
-              <div class="container afu-container">
-                <h2 mat-dialog-title>Upload Analysis to Song</h2>
-                <!-- <mat-dialog-content class="mat-typography"> -->
-                  <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
-                    id="kt_create_account_stepper">
-                    <app-analysis-upload [config]="config" [jsonPayLoad]="jsonPayLoad" [studyId]="studyId" [resetUpload]=resetUpload
-                      (fileSelected)="fileSelected($event)" (ApiResponse)="uploadResponse($event)">
-                    </app-analysis-upload>
-                  </div>
-                <!-- </mat-dialog-content> -->
+            <div class="container afu-container">
+              <h2 mat-dialog-title>Upload Analysis to Song</h2>
+              <!-- <mat-dialog-content class="mat-typography"> -->
+              <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
+                id="kt_create_account_stepper">
+                <app-analysis-upload [config]="config" [jsonPayLoad]="jsonPayLoad" [studyId]="studyId"
+                  [resetUpload]=resetUpload (fileSelected)="fileSelected($event)"
+                  (ApiResponse)="uploadResponse($event)">
+                </app-analysis-upload>
               </div>
+              <!-- </mat-dialog-content> -->
+            </div>
           </ng-container>
 
           <ng-container *ngIf="currentStep$.value === 2">
             <div class="container afu-container">
-              <h2 mat-dialog-title>Create Manifest for Score</h2>
+              <h2 mat-dialog-title>Create Manifest & Upload Data via Score</h2>
               <!-- <mat-dialog-content class="mat-typography"> -->
-                <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
-                  id="kt_create_account_stepper">
-                  <app-create-manifest [config]="config1" [studyId]="studyId" [resetUpload]=resetUpload
+              <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
+                id="kt_create_account_stepper">
+                <app-create-manifest [config]="config1" [studyId]="studyId" [resetUpload]=resetUpload
                   (fileSelected)="fileSelected($event)" (ApiResponse)="uploadResponse($event)"></app-create-manifest>
-                </div>
+              </div>
               <!-- </mat-dialog-content> -->
             </div>
 
           </ng-container>
 
           <ng-container *ngIf="currentStep$.value === 3">
-            <!-- <app-study-step3 class="w-100"> </app-study-step3> -->
+            <div class="container afu-container">
+              <h2 mat-dialog-title>Publish Study & Index Study via Maestro</h2>
+              <!-- <mat-dialog-content class="mat-typography"> -->
+              <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
+                id="kt_create_account_stepper">
+                <app-publish-analysis [studyId]="studyId" [analysisId]="analysisId"></app-publish-analysis>
+              </div>
+              <!-- </mat-dialog-content> -->
+            </div>
           </ng-container>
+
+
+          <ng-container *ngIf="currentStep$.value === 4">
+            <app-complete-upload class="w-100"></app-complete-upload>
+          </ng-container>
+
         </div>
 
         <div class="d-flex flex-stack pt-10">
           <div class="mr-2">
-            <ng-container *ngIf="currentStep$.value !== 1 && currentStep$.value !== 3">
+            <ng-container *ngIf="currentStep$.value !== 1 && currentStep$.value !== 4">
               <button type="button" class="btn btn-lg btn-light-primary me-3" (click)="prevStep()">
                 <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"
                   class="svg-icon svg-icon-4 me-1"></span>
                 Back
+              </button>
+            </ng-container>
+
+            <ng-container *ngIf="currentStep$.value === 4">
+              <button type="button" class="btn btn-lg btn-light-primary me-3">
+                <span [inlineSVG]="'./assets/media/icons/duotune/arrows/arr063.svg'"
+                  class="svg-icon svg-icon-4 me-1"></span>
+                Done
               </button>
             </ng-container>
 
@@ -151,14 +194,15 @@
               </button>
             </div>
 
-            <div *ngIf="currentStep$.value === formsCount - 1">
-              <!-- <button type="button" class="btn btn-lg btn-primary me-3" [disabled]="!isCurrentFormValid$.value"
-                (click)="save()">
+            <!-- <div *ngIf="currentStep$.value === formsCount - 1">
+              <button type="button" class="btn btn-lg btn-primary me-3" [disabled]="!isCurrentFormValid$.value"
+                (click)="onNoClick()">
                 <span class="indicator-label">
-                  <ng-container> Submit </ng-container>
+                  <ng-container> Close </ng-container>
                 </span>
-              </button> -->
-            </div>
+              </button>
+            </div> -->
+
           </ng-container>
         </div>
       </form>

@@ -14,7 +14,7 @@ export class SubmitAnalysisModalComponent implements OnInit {
   public currentStep$: BehaviorSubject<number> = new BehaviorSubject(1);
   public isCurrentFormValid$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
-  public formsCount = 3;
+  public formsCount = 4;
 
   private unsubscribe: Subscription[] = [];
 
@@ -47,11 +47,38 @@ export class SubmitAnalysisModalComponent implements OnInit {
       sizeLimit: string;
     };
   };
+  config1: {
+    multiple: boolean;
+    formatsAllowed: string;
+    maxSize: number;
+    uploadAPI: {
+      url: string;
+      headers: { 'Content-Type': string; Authorization: string };
+      withCredentials: boolean;
+    };
+    method: string;
+    responseType: string;
+    theme: string;
+    hideProgressBar: boolean;
+    hideResetBtn: boolean;
+    hideSelectBtn: boolean;
+    fileNameIndex: boolean;
+    autoUpload: boolean;
+    replaceTexts: {
+      selectFileBtn: string;
+      resetBtn: string;
+      uploadBtn: string;
+      dragNDropBox: string;
+      attachPinBtn: string;
+      afterUploadMsg_success: string;
+      afterUploadMsg_error: string;
+      sizeLimit: string;
+    };
+  };
 
   studyId: string;
   jsonPayLoad: string;
   analysisId: string;
-  config1: { multiple: boolean; formatsAllowed: string; maxSize: number; uploadAPI: { url: string; headers: { 'Content-Type': string; Authorization: string; }; withCredentials: boolean; }; method: string; responseType: string; theme: string; hideProgressBar: boolean; hideResetBtn: boolean; hideSelectBtn: boolean; fileNameIndex: boolean; autoUpload: boolean; replaceTexts: { selectFileBtn: string; resetBtn: string; uploadBtn: string; dragNDropBox: string; attachPinBtn: string; afterUploadMsg_success: string; afterUploadMsg_error: string; sizeLimit: string; }; };
 
   constructor(
     private _service: SubmitService,
@@ -60,7 +87,6 @@ export class SubmitAnalysisModalComponent implements OnInit {
   protected basePath = 'https://dms.thakhutse.co.za/song-api';
 
   ngOnInit(): void {
-
     this.isCurrentFormValid$.next(true);
 
     this.studyId = this.data.studyId;
@@ -146,10 +172,6 @@ export class SubmitAnalysisModalComponent implements OnInit {
   }
 
   uploadResponse($event: any) {
-    // console.log($event);
-    // let x = blobToText($event.body);
-    // console.log($event.body);
-    // console.log(<File>$event.body);
     if ($event.status === 200) {
       this.isCurrentFormValid$.next(true);
     }
@@ -169,6 +191,10 @@ export class SubmitAnalysisModalComponent implements OnInit {
       return;
     }
     this.currentStep$.next(prevStep);
+  }
+
+  onNoClick(): void {
+    // this.dialogRef.close();
   }
 }
 

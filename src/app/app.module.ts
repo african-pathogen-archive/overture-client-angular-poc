@@ -15,10 +15,8 @@ import { environment } from 'src/environments/environment';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './shared/util/interceptor';
-import { AngularFileUploaderModule } from 'angular-file-uploader/angular-file-uploader';
 import { GlobalDataService } from './shared/util/global-data-service';
 // #fake-end#
-
 
 // export function getRemoteServiceBaseUrl(): string {
 //   return environment.remoteSongServiceBaseUrl;
@@ -42,7 +40,6 @@ function appInitializer(authService: AuthService) {
     HttpClientModule,
     ClipboardModule,
     SharedModule,
-    // AngularFileUploaderModule,
     // #fake-start#
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
@@ -63,7 +60,7 @@ function appInitializer(authService: AuthService) {
       deps: [AuthService],
     },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    GlobalDataService
+    GlobalDataService,
   ],
   bootstrap: [AppComponent],
 })

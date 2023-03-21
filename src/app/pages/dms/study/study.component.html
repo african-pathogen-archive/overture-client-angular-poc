@@ -18,11 +18,12 @@
             <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
               <thead>
                 <tr class="fw-bolder text-muted">
+                  <th class="min-w-10px">Explore Details</th>
                   <th class="min-w-140px">Study Identifier</th>
                   <th class="min-w-120px">Name</th>
                   <th class="min-w-120px">Description</th>
                   <th class="min-w-150px">Organization</th>
-                  <th class="min-w-50px"></th>
+                  <th class="min-w-50px">Actions</th>
                 </tr>
               </thead>
 
@@ -34,6 +35,17 @@
               </div> -->
               <tbody *ngIf="!loading">
                 <tr *ngFor="let item of studies">
+
+                  <td>
+                    <div class="d-flex justify-content-start flex-shrink-5">
+                      <a (click)="openSubmitAnalysisModal(item.studyId ?? '')"
+                        class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                        <span [inlineSVG]="
+                            './assets/media/icons/duotune/general/gen004.svg'
+                          " class="svg-icon svg-icon-1"></span>
+                      </a>
+                    </div>
+                  </td>
 
                   <td>
                     <a class="text-dark fw-bolder text-hover-primary d-block fs-6">
@@ -67,17 +79,17 @@
                   </td>
 
                   <td>
-                    <div class="d-flex justify-content-end flex-shrink-0">
+                    <div class="d-flex justify-content-start flex-shrink-0">
                       <a (click)="openSubmitAnalysisModal(item.studyId ?? '')"
                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span [inlineSVG]="
                             './assets/media/icons/duotune/files/fil023.svg'
-                          " class="svg-icon svg-icon-3"></span>
+                          " class="svg-icon svg-icon-1"></span>
                       </a>
                       <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                         <span [inlineSVG]="
                             './assets/media/icons/duotune/general/gen027.svg'
-                          " class="svg-icon svg-icon-3"></span>
+                          " class="svg-icon svg-icon-1"></span>
                       </a>
                     </div>
                   </td>

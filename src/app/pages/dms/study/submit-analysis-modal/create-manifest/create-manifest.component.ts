@@ -27,6 +27,9 @@ import { Md5 } from 'ts-md5';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UUID } from 'angular2-uuid';
 import { GlobalDataService } from 'src/app/shared/util/global-data-service';
+// import { ToastrService } from 'ngx-toastr';
+import { UploadS3Service } from 'src/app/services/upload-s3.service';
+import { ToastService } from 'src/app/services/toast.service';
 // import { Guid } from 'guid-typescript';
 
 @Component({
@@ -79,6 +82,7 @@ export class CreateManifestComponent implements OnChanges {
   Caption: string[] = [];
   isAllowedFileSingle = true;
   progressBarShow = false;
+  enableCreateManifestBtn = false;
   enableUploadBtn = false;
   uploadMsg = false;
   afterUpload = false;
@@ -103,6 +107,8 @@ export class CreateManifestComponent implements OnChanges {
     private cdr: ChangeDetectorRef,
     private globalDataService: GlobalDataService,
     private sanitizer: DomSanitizer,
+    private uploadS3Service: UploadS3Service,
+    private toastService: ToastService
   ) {
     this.analysisId = this.globalDataService.getAnalysisId();
   }
@@ -167,6 +173,7 @@ export class CreateManifestComponent implements OnChanges {
     this.notAllowedFiles = [];
     this.uploadMsg = false;
     this.enableUploadBtn = false;
+    this.enableCreateManifestBtn = false;
   }
 
   // When user selects files.
@@ -212,12 +219,15 @@ export class CreateManifestComponent implements OnChanges {
     // If there's any allowedFiles.
     if (this.allowedFiles.length > 0) {
       this.enableUploadBtn = true;
+      this.enableCreateManifestBtn = true;
+
       // Upload the files directly if theme is attach pin (as upload btn is not there for this theme) or autoUpload is true.
       if (this.theme === 'attachPin' || this.autoUpload) {
-        this.uploadFiles();
+        this.createManifest();
       }
     } else {
       this.enableUploadBtn = false;
+      this.enableCreateManifestBtn = false;
     }
 
     this.uploadMsg = false;
@@ -226,7 +236,27 @@ export class CreateManifestComponent implements OnChanges {
     event.target.value = null;
   }
 
-  uploadFiles() {
+  uploadDataToS3() {
+    this.allowedFiles.forEach(async (uploadedFile: Blob) => {
+      // let file = this.files[i];
+      let file = <File>uploadedFile;
+
+      let filePath =
+        'manifest-upload/' + Math.random() * 10000000000000000 + '_' + file?.name; // to create unique name for avoiding being replaced
+      try {
+        let response = await this.uploadS3Service.uploadFile(file, filePath);
+        console.log(response);
+
+        this.toastService.showSuccessToast('Success', file?.name + 'uploaded Successfully :)');
+        const url = (response as any).Location;
+        // this.renderImages.push(url);
+      } catch (error) {
+        this.toastService.showErrorToast('Success', 'Something went wrong! ');
+      }
+    });
+  }
+
+  createManifest() {
     this.progressBarShow = true;
     this.uploadStarted = true;
     this.notAllowedFiles = [];
@@ -262,7 +292,7 @@ export class CreateManifestComponent implements OnChanges {
             'seconds'
           );
 
-           //Cast to a File() type
+          //Cast to a File() type
           let file = <File>uploadedFile;
 
           data += `${UUID.UUID()}\t${file.name}\t${fileMd5Hash}\n`;
@@ -277,6 +307,7 @@ export class CreateManifestComponent implements OnChanges {
 
       this.progressBarShow = false;
       this.enableUploadBtn = false;
+      this.enableCreateManifestBtn = true;
       this.uploadMsg = true;
       this.afterUpload = true;
       this.canDownload = true;
@@ -291,6 +322,8 @@ export class CreateManifestComponent implements OnChanges {
   handleErrors() {
     this.progressBarShow = false;
     this.enableUploadBtn = false;
+    this.enableCreateManifestBtn = false;
+
     this.uploadMsg = true;
     this.afterUpload = true;
     this.uploadMsgText = this.replaceTexts.afterUploadMsg_error ?? '';
@@ -307,6 +340,7 @@ export class CreateManifestComponent implements OnChanges {
 
     if (this.allowedFiles.length === 0) {
       this.enableUploadBtn = false;
+      this.enableCreateManifestBtn = false;
     }
   }
 

@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { DmsRoutingModule } from './dms-routing.module';
+
+import { LayoutModule } from '@angular/cdk/layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InlineSVGModule } from 'ng-inline-svg-2';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CardsModule, WidgetsModule } from 'src/app/_metronic/partials';
+import { ApiServiceModule } from 'src/app/services/api-service.module';
+
 import { SongsComponent } from './songs/songs.component';
 import { ScoresComponent } from './scores/scores.component';
 import { SongsModalComponent } from './songs/create-songs/songs-modal/songs-modal.component';
@@ -13,16 +20,12 @@ import { StudyModalComponent } from './study/create-studies/study-modal/study-mo
 import { StudyStep2Component } from './study/create-studies/study-step2/study-step2.component';
 import { StudyStep3Component } from './study/create-studies/study-step3/study-step3.component';
 import { StudyStep1Component } from './study/create-studies/study-step1/study-step1.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InlineSVGModule } from 'ng-inline-svg-2';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CardsModule, WidgetsModule } from 'src/app/_metronic/partials';
-import { ApiServiceModule } from 'src/services/api-service.module';
 import { SubmitAnalysisModalComponent } from './study/submit-analysis-modal/submit-analysis-modal.component';
-import { AngularFileUploaderModule } from "angular-file-uploader";
 import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-upload/analysis-upload.component';
 import { CreateManifestComponent } from './study/submit-analysis-modal/create-manifest/create-manifest.component';
+import { PublishAnalysisComponent } from './study/submit-analysis-modal/publish-analysis/publish-analysis.component';
+import { CompleteUploadComponent } from './study/submit-analysis-modal/complete-upload/complete-upload.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { CreateManifestComponent } from './study/submit-analysis-modal/create-ma
     StudyStep1Component,
     SubmitAnalysisModalComponent,
     AnalysisUploadComponent,
-    CreateManifestComponent
+    CreateManifestComponent,
+    PublishAnalysisComponent,
+    CompleteUploadComponent
   ],
   imports: [
     CommonModule,
@@ -54,8 +59,6 @@ import { CreateManifestComponent } from './study/submit-analysis-modal/create-ma
     LayoutModule,
     SharedModule,
     InlineSVGModule,
-    // AngularFileUploaderModule
-
   ],
 })
 export class DmsModule { }
