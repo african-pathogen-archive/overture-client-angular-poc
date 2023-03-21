@@ -25,7 +25,7 @@ function getChartOptions(chartHeight: string, chartColor: string) {
   return {
     series: [
       {
-        name: 'Net Profit',
+        name: 'Successful Data Uploads',
         data: [15, 25, 15, 40, 20, 50],
       },
     ],
@@ -126,7 +126,7 @@ function getChartOptions(chartHeight: string, chartColor: string) {
       },
       y: {
         formatter: function (val: number) {
-          return '$' + val + ' thousands';
+          return 'SUM of ' + val + ' Upload Items';
         },
       },
     },

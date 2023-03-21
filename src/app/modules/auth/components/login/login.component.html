@@ -8,16 +8,8 @@
 >
   <!--begin::Heading-->
   <div class="text-center mb-10">
-    <h1 class="text-dark mb-3">Sign In to Overture</h1>
-    <div class="text-gray-400 fw-bold fs-4">
-      New Here?
-      <a
-        routerLink="/auth/registration"
-        id="kt_login_signup"
-        class="link-primary fw-bolder"
-        >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
-      >
-    </div>
+    <h1 class="text-dark mb-3">Sign In to</h1>
+    <h1 class="text-dark mb-3">African Pathogen Archive</h1>
   </div>
   <!--end::Heading-->
 
@@ -161,7 +153,7 @@
           ></span>
         </span>
       </ng-container>
-      <ng-container *ngIf="!(isLoading$ | async)">
+      <ng-container *ngIf="(isLoading$ | async) === false">
         <span class="indicator-label">Continue</span>
       </ng-container>
     </button>
@@ -188,6 +180,17 @@
       Continue with Google
     </a>
   </div>
+
+  <div class="text-gray-400 fw-bold fs-4">
+    New Here?
+    <a
+      routerLink="/auth/registration"
+      id="kt_login_signup"
+      class="link-primary fw-bolder"
+      >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a
+    >
+  </div>
+
   <!--end::Action-->
 </form>
 <!--end::Form-->

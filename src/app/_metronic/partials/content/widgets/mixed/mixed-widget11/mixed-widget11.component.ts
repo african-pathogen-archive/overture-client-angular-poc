@@ -25,11 +25,11 @@ function getChartOptions(chartHeight: string, chartColor: string) {
   return {
     series: [
       {
-        name: 'Net Profit',
+        name: 'Total Data Uploads',
         data: [50, 60, 70, 80, 60, 50, 70, 60],
       },
       {
-        name: 'Revenue',
+        name: 'Successful Data Uploads',
         data: [50, 60, 70, 80, 60, 50, 70, 60],
       },
     ],
@@ -112,7 +112,7 @@ function getChartOptions(chartHeight: string, chartColor: string) {
       },
       y: {
         formatter: function (val: number) {
-          return '$' + val + ' revenue';
+          return 'SUM of ' + val + ' Uploads';
         },
       },
     },

@@ -1,5 +1,5 @@
 <div class="card-header border-0 py-5" [ngClass]="'bg-' + chartColor">
-  <h3 class="card-title fw-bolder text-white">Songs Management</h3>
+  <h3 class="card-title fw-bolder text-white">Metadata Management</h3>
   <div class="card-toolbar">
     <!-- begin::Menu -->
     <button type="button" class="
@@ -33,18 +33,38 @@
       <div class="col bg-light-warning px-6 py-8 rounded-2 me-7 mb-7">
         <span [inlineSVG]="'./assets/media/icons/duotune/general/gen032.svg'"
           class="svg-icon svg-icon-3x svg-icon-warning d-block my-2"></span>
-        <a href="#" class="text-warning fw-bold fs-6"> View Songs </a>
+        <a href="#" class="text-warning fw-bold fs-6"> View Metadata </a>
       </div>
       <!-- end::Col -->
       <!-- begin::Col -->
       <div class="col bg-light-primary px-6 py-8 rounded-2 mb-7">
         <span [inlineSVG]="'./assets/media/icons/duotune/finance/fin006.svg'"
           class="svg-icon svg-icon-3x svg-icon-primary d-block my-2"></span>
-        <a href="#" class="text-primary fw-bold fs-6"> New Song </a>
+        <a href="#" class="text-primary fw-bold fs-6"> Add New Metadata </a>
       </div>
       <!-- end::Col -->
     </div>
     <!-- end::Row -->
+
+    <!-- begin::Row -->
+    <div class="row g-0">
+      <!-- begin::Col -->
+      <div class="col bg-light-danger px-6 py-8 rounded-2 me-7">
+        <span [inlineSVG]="'./assets/media/icons/duotune/abstract/abs027.svg'"
+          class="svg-icon svg-icon-3x svg-icon-danger d-block my-2"></span>
+        <a href="#" class="text-danger fw-bold fs-6 mt-2"> Failed Uploads </a>
+      </div>
+      <!-- end::Col -->
+      <!-- begin::Col -->
+      <div class="col bg-light-success px-6 py-8 rounded-2">
+        <span [inlineSVG]="'./assets/media/icons/duotune/communication/com010.svg'"
+          class="svg-icon svg-icon-3x svg-icon-success d-block my-2"></span>
+        <a href="#" class="text-success fw-bold fs-6 mt-2"> Pending Uploads </a>
+      </div>
+      <!-- end::Col -->
+    </div>
+    <!-- end::Row -->
+
   </div>
   <!-- end::Stats -->
 </div>

@@ -57,7 +57,7 @@ export class StudyModalComponent implements OnInit, OnDestroy {
     this.study.studyId = currentStudy.studyId ?? "";
 
     const sub = this._service
-      .saveStudyUsingPOST(this.study.studyId , this.study)
+      .saveStudyUsingPOST(this.study.studyId , this.study, `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`)
       .pipe(
         finalize(() => {
           this.saving = false;

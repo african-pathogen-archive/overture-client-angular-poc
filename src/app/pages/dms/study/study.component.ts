@@ -64,8 +64,8 @@ export class StudyComponent implements OnInit {
               this._service
                 .getEntireStudyUsingGET(studyId, 'body')
                 .subscribe((fullStudyRes) => {
-                  blobToText(fullStudyRes).subscribe((result200) => {
-                    let study200: Study = JSON.parse(result200);
+                  blobToText(fullStudyRes).subscribe((result200_1) => {
+                    let study200: Study = JSON.parse(result200_1);
                     this.studies.push(study200);
                     this.cdr.detectChanges();
                   });

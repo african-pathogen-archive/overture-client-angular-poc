@@ -1,4 +1,11 @@
 import {
+  HttpHeaders,
+  HttpParams,
+  HttpClient,
+  HttpEventType,
+} from '@angular/common/http';
+import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -8,35 +15,32 @@ import {
   SimpleChanges,
   SkipSelf,
 } from '@angular/core';
-
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpEventType,
-} from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import {
   AngularFileUploaderConfig,
-  ReplaceTexts,
   UploadInfo,
-} from './file-uploader.types';
+  ReplaceTexts,
+} from 'angular-file-uploader';
 import { SubmitService } from 'nswag/song';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { ManifestFile } from '../analysis-upload/file-uploader.types';
+import { Md5 } from 'ts-md5';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UUID } from 'angular2-uuid';
 import { GlobalDataService } from 'src/app/shared/util/global-data-service';
+// import { Guid } from 'guid-typescript';
 
 @Component({
-  selector: 'app-analysis-upload',
-  templateUrl: './analysis-upload.component.html',
-  styleUrls: ['./analysis-upload.component.scss'],
+  selector: 'app-create-manifest',
+  templateUrl: './create-manifest.component.html',
+  styleUrls: ['./create-manifest.component.scss'],
 })
-export class AnalysisUploadComponent implements OnChanges {
+export class CreateManifestComponent implements OnChanges {
   // Inputs
   @Input()
   config: AngularFileUploaderConfig;
 
-  @Input()
-  jsonPayLoad: string;
+  // @Input()
+  analysisId: string;
 
   @Input()
   studyId: string;
@@ -60,7 +64,7 @@ export class AnalysisUploadComponent implements OnChanges {
   method: string;
   formatsAllowed: string;
   formatsAllowedText: string;
-  multiple: boolean;
+  multiple: boolean = true;
   headers: HttpHeaders | { [header: string]: string | string[] };
   params: HttpParams | { [param: string]: string | string[] };
   responseType: 'json' | 'arraybuffer' | 'blob' | 'text';
@@ -87,15 +91,21 @@ export class AnalysisUploadComponent implements OnChanges {
   fileNameIndex = true;
   withCredentials = false;
   autoUpload = false;
-
+  fileUrl: any;
   private idDate: number = +new Date();
   analysis: any;
+  manifestName = '';
+  canDownload: boolean = false;
 
   constructor(
     @SkipSelf() private http: HttpClient,
     private _service: SubmitService,
+    private cdr: ChangeDetectorRef,
     private globalDataService: GlobalDataService,
-  ) {}
+    private sanitizer: DomSanitizer,
+  ) {
+    this.analysisId = this.globalDataService.getAnalysisId();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // Track changes in Configuration and see if user has even provided Configuration.
@@ -124,7 +134,7 @@ export class AnalysisUploadComponent implements OnChanges {
       this.autoUpload = this.config.autoUpload || false;
 
       this.replaceTexts = {
-        selectFileBtn: this.multiple ? 'Select Files' : 'Select File',
+        selectFileBtn: this.multiple ? 'Select Raw Data Files' : 'Select File',
         resetBtn: 'Reset',
         uploadBtn: 'Upload',
         dragNDropBox: 'Drag N Drop',
@@ -232,57 +242,50 @@ export class AnalysisUploadComponent implements OnChanges {
       );
     });
 
-    this._service
-      .submitUsingPOST(
-        this.studyId,
-        this.jsonPayLoad.toString(),
-        `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
-        'response',
-        true
-      )
-      .subscribe(
-        (event: any) => {
-          // Upload Progress
-          console.log(event);
+    let manifestFile = {} as ManifestFile;
 
-          blobToText(event.body).subscribe((result200 : any) => {
-            this.analysis = JSON.parse(result200);
-            this.globalDataService.setAnalysisId(this.analysis['analysisId']); // Set again to make value avaliable to the overlay items.
-          });
+    // Success
+    var data = `${this.analysisId}\t\t\n`;
 
-          if (event.type === HttpEventType.UploadProgress) {
-            this.enableUploadBtn = false; // button should be disabled if process uploading
-            const currentDone = event.loaded / event.total;
-            this.uploadPercent = Math.round((event.loaded / event.total) * 100);
-          } else if (event.type === HttpEventType.Response) {
-            if (event.status === 200 || event.status === 201) {
-              // Success
-              this.progressBarShow = false;
-              this.enableUploadBtn = false;
-              this.uploadMsg = true;
-              this.afterUpload = true;
-              if (!isError) {
-                this.uploadMsgText = `${this.replaceTexts.afterUploadMsg_success}`;
-                this.uploadMsgClass = 'text-success lead';
-              }
-            } else {
-              // Failure
-              isError = true;
-              this.handleErrors();
-            }
+    this.allowedFiles.forEach((uploadedFile: Blob) => {
+      const startTime = new Date().getTime();
 
-            this.ApiResponse.emit(event);
-          } else {
-            //console.log('Event Other: ', event);
-          }
-        },
-        (error) => {
-          // Failure
-          isError = true;
-          this.handleErrors();
-          this.ApiResponse.emit(error);
-        }
-      );
+      let fileMd5Hash = '';
+      uploadedFile
+        .text()
+        .then((x: string) => Md5.hashAsciiStr(x))
+        .then((hash: any) => {
+          fileMd5Hash = hash;
+          const endTime = new Date().getTime();
+          console.log(
+            fileMd5Hash + ' ---- ' + (endTime - startTime) / 1000,
+            'seconds'
+          );
+
+           //Cast to a File() type
+          let file = <File>uploadedFile;
+
+          data += `${UUID.UUID()}\t${file.name}\t${fileMd5Hash}\n`;
+
+          const blob = new Blob([data], { type: 'application/octet-stream' });
+          console.log(data);
+
+          this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+            window.URL.createObjectURL(blob)
+          );
+        });
+
+      this.progressBarShow = false;
+      this.enableUploadBtn = false;
+      this.uploadMsg = true;
+      this.afterUpload = true;
+      this.canDownload = true;
+
+      if (!isError) {
+        this.uploadMsgText = `${this.replaceTexts.afterUploadMsg_success}`;
+        this.uploadMsgClass = 'text-success lead';
+      }
+    });
   }
 
   handleErrors() {

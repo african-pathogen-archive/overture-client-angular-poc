@@ -17,7 +17,7 @@ const Routing: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/crafted/dms/studies',
     pathMatch: 'full',
   },
   {

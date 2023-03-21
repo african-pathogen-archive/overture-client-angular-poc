@@ -33,7 +33,7 @@ function getChartOptions(
   return {
     series: [
       {
-        name: 'Net Profit',
+        name: 'Total Data Uploads',
         data: [30, 45, 32, 70, 40, 40, 40],
       },
     ],
@@ -140,7 +140,7 @@ function getChartOptions(
       },
       y: {
         formatter: function (val: number) {
-          return '$' + val + ' thousands';
+          return 'SUM of ' + val + ' Uploads';
         },
       },
       marker: {

@@ -22,6 +22,7 @@ import { ApiServiceModule } from 'src/services/api-service.module';
 import { SubmitAnalysisModalComponent } from './study/submit-analysis-modal/submit-analysis-modal.component';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-upload/analysis-upload.component';
+import { CreateManifestComponent } from './study/submit-analysis-modal/create-manifest/create-manifest.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-
     StudyStep3Component,
     StudyStep1Component,
     SubmitAnalysisModalComponent,
-    AnalysisUploadComponent
+    AnalysisUploadComponent,
+    CreateManifestComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,7 @@ import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-
     LayoutModule,
     SharedModule,
     InlineSVGModule,
-    AngularFileUploaderModule
+    // AngularFileUploaderModule
 
   ],
 })

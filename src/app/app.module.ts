@@ -15,7 +15,8 @@ import { environment } from 'src/environments/environment';
 import { FakeAPIService } from './_fake/fake-api.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './shared/util/interceptor';
-import { AngularFileUploaderModule } from 'angular-file-uploader';
+import { AngularFileUploaderModule } from 'angular-file-uploader/angular-file-uploader';
+import { GlobalDataService } from './shared/util/global-data-service';
 // #fake-end#
 
 
@@ -41,7 +42,7 @@ function appInitializer(authService: AuthService) {
     HttpClientModule,
     ClipboardModule,
     SharedModule,
-    AngularFileUploaderModule,
+    // AngularFileUploaderModule,
     // #fake-start#
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {
@@ -61,7 +62,8 @@ function appInitializer(authService: AuthService) {
       multi: true,
       deps: [AuthService],
     },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    GlobalDataService
   ],
   bootstrap: [AppComponent],
 })

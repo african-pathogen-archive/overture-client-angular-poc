@@ -41,3 +41,15 @@ export interface UploadInfo {
   formData: FormData;
   indexes: number[];
 }
+
+export interface ManifestFile {
+  Info:   string[];
+  ObjectId:   string;
+	AnalysisId: string;
+	StudyId :   string;
+	FileName :  string;
+	FileSize:   number;
+	FileType :  string;
+	FileAccess: string;
+	FileMd5sum : string;
+}
