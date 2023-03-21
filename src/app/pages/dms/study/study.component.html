@@ -38,7 +38,7 @@
 
                   <td>
                     <div class="d-flex justify-content-start flex-shrink-5">
-                      <a (click)="openSubmitAnalysisModal(item.studyId ?? '')"
+                      <a [routerLink]="['/crafted/dms/study-detail', item.studyId ?? '']" routerLinkActive="router-link-active"
                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                         <span [inlineSVG]="
                             './assets/media/icons/duotune/general/gen004.svg'

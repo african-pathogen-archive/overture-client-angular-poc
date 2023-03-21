@@ -242,7 +242,7 @@ export class CreateManifestComponent implements OnChanges {
       let file = <File>uploadedFile;
 
       let filePath =
-        'manifest-upload/' + Math.random() * 10000000000000000 + '_' + file?.name; // to create unique name for avoiding being replaced
+        'data/' + Math.random() * 10000000000000000 + '_' + file?.name; // to create unique name for avoiding being replaced
       try {
         let response = await this.uploadS3Service.uploadFile(file, filePath);
         console.log(response);

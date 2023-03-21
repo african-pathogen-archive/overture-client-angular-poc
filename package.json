@@ -44,6 +44,7 @@
     "ngx-toastr": "^16.1.0",
     "nouislider": "15.5.1",
     "object-path": "0.11.8",
+    "pretty-print-json": "^1.4.0",
     "prism-themes": "1.9.0",
     "prismjs": "1.27.0",
     "rxjs": "7.5.0",

@@ -25,6 +25,8 @@ import { AnalysisUploadComponent } from './study/submit-analysis-modal/analysis-
 import { CreateManifestComponent } from './study/submit-analysis-modal/create-manifest/create-manifest.component';
 import { PublishAnalysisComponent } from './study/submit-analysis-modal/publish-analysis/publish-analysis.component';
 import { CompleteUploadComponent } from './study/submit-analysis-modal/complete-upload/complete-upload.component';
+import { StudyDetailsComponent } from './study-details/study-details.component';
+import { ViewStudyDetailsComponent } from './study-details/view-study-details/view-study-details.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { CompleteUploadComponent } from './study/submit-analysis-modal/complete-
     AnalysisUploadComponent,
     CreateManifestComponent,
     PublishAnalysisComponent,
-    CompleteUploadComponent
+    CompleteUploadComponent,
+    StudyDetailsComponent,
+    ViewStudyDetailsComponent
   ],
   imports: [
     CommonModule,

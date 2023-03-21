@@ -12,12 +12,12 @@ export class UploadS3Service  {
     return new Promise((resolve, reject) => {
       const contentType = file.type;
       const bucket = new S3({
-        accessKeyId: '',// ACCESS_KEY_ID
-        secretAccessKey: '',// SECRET_ACCESS_KEY
-        region: 'us-east-2',// BUCKET_REGION
+        accessKeyId: 'AKIA6F66TQ5SUUFVWMWZ',// ACCESS_KEY_ID
+        secretAccessKey: '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',// SECRET_ACCESS_KEY
+        region: 'af-south-1',// BUCKET_REGION
       });
       const params = {
-        Bucket: '',//BUCKET_NAME
+        Bucket: 'sanbi-dmsdata',//BUCKET_NAME
         Key: filePath,
         Body: file,
         ACL: 'public-read',

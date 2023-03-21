@@ -1,0 +1,96 @@
+<div class="row g-5 g-xl-8">
+  <!-- begin::Col -->
+  <div class="col-xl-4">
+
+    <div class="card-body p-0" *ngIf="study">
+      <!-- begin::Header -->
+      <div class="px-9 pt-7 card-rounded h-275px w-100" [ngClass]="'bg-' + color">
+
+        <div class="d-flex text-center flex-column text-white pt-8">
+          <span class="fw-bold fs-7"><a  class="btn btn-danger font-weight-bolder font-size-sm cursor-pointer" (click)="openStudyDetails(study)"> View More </a></span>
+          <!-- <span class="fw-bolder fs-2x pt-1"></span> -->
+        </div>
+
+        <!-- begin::Heading -->
+        <div class="d-flex flex-stack">
+          <b>Description: </b><h3 class="m-0 text-white fw-bolder fs-3">{{ study.description}}</h3>
+        </div>
+
+        <div class="d-flex flex-stack">
+          <b>Organization: </b><h3 class="m-0 text-white fw-bolder fs-3">{{ study.organization}}</h3>
+        </div>
+
+        <div class="d-flex flex-stack">
+          <b>Name: </b><h3 class="m-0 text-white fw-bolder fs-3">{{ study.name}}</h3>
+        </div>
+
+        <div class="d-flex flex-stack">
+          <b>StudyId: </b><h3 class="m-0 text-white fw-bolder fs-3">{{ study.studyId}}</h3>
+        </div>
+        <!-- end::Heading -->
+      </div>
+      <!-- end::Header -->
+      <!-- begin::Items -->
+      <div class="
+      shadow-xs
+      card-rounded
+      mx-9
+      mb-9
+      px-6
+      py-9
+      position-relative
+      z-index-1
+      bg-white
+    " [style.margin-top]="'-100px'">
+        <!-- begin::Item -->
+        <div class="d-flex align-items-center mb-6">
+          <!-- begin::Symbol -->
+          <div class="symbol symbol-45px w-40px me-5">
+            <span class="symbol-label bg-lighten">
+              <span [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'" class="svg-icon svg-icon-1"></span>
+            </span>
+          </div>
+          <!-- end::Symbol -->
+          <!-- begin::Description -->
+          <div class="d-flex align-items-center flex-wrap w-100">
+            <!-- begin::Title -->
+            <div class="mb-1 pe-3 flex-grow-1">
+              <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                Gender
+              </a>
+              <div class="text-gray-400 fw-bold fs-7">{{  study['donors']?.[0]?.gender }}</div>
+              <div class="text-gray-400 fw-bold fs-9">{{  study['donors']?.[0]?.donorId }}</div>
+              <div class="text-gray-400 fw-bold fs-7">{{  study['donors']?.[0]?.submitterDonorId }}</div>
+            </div>
+            <!-- end::Title -->
+          </div>
+          <!-- end::Description -->
+        </div>
+        <!-- end::Item -->
+        <!-- begin::Item -->
+        <div class="d-flex align-items-center mb-6">
+          <!-- begin::Symbol -->
+          <div class="symbol symbol-45px w-40px me-5">
+            <span class="symbol-label bg-lighten">
+              <span [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'" class="svg-icon svg-icon-1"></span>
+            </span>
+          </div>
+          <!-- end::Symbol -->
+          <!-- begin::Description -->
+          <div class="d-flex align-items-center flex-wrap w-100">
+            <!-- begin::Title -->
+            <div class="mb-1 pe-3 flex-grow-1">
+              <a href="#" class="fs-5 text-gray-800 text-hover-primary fw-bolder">
+                Infomation
+              </a>
+              <div class="text-gray-400 fw-bold fs-7">Age: {{ study['donors']?.[0]?.info?.age }}</div>
+            </div>
+          </div>
+          <!-- end::Description -->
+        </div>
+        <!-- end::Item -->
+      </div>
+      <!-- end::Items -->
+    </div>
+  </div>
+  <!-- end::Col -->

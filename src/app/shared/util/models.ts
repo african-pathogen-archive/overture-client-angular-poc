@@ -1,3 +1,5 @@
+import { StudyWithDonors } from "nswag/song";
+
 export interface ConfirmationText {
   message: string;
 }
@@ -9,4 +11,9 @@ export interface MessageInfo {
 
 export interface PassProjectToModal {
   studyId: string;
+}
+
+
+export interface StudyWithDonorsData {
+  data: StudyWithDonors;
 }
