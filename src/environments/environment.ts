@@ -9,16 +9,10 @@ export const environment = {
   isMockEnabled: true,
   apiUrl: 'api',
   appThemeName: 'Metronic',
+  userToken: '72c8482e-2435-40ac-8cfb-57c8061cb7a3',
   remoteEgoServiceBaseUrl: 'https://dms.thakhutse.co.za/ego-api',
   remoteSongServiceBaseUrl: 'https://dms.thakhutse.co.za/song-api',
-  // remoteStudyServiceBaseUrl: 'https://dms.thakhutse.co.za/ego-api/',
   remoteMaestroServiceBaseUrl: 'https://dms.thakhutse.co.za/ego-api/',
-  // appPurchaseUrl: '#',
-  // appHTMLIntegration: '#',
-  // appPreviewUrl: '#',
-  // appPreviewAngularUrl: '#',
-  // appPreviewDocsUrl: '#',
-  // appPreviewChangelogUrl: '#',
   appDemos: {
     'overture-client': {
       'title': 'Overture DMS',

@@ -4,6 +4,7 @@ import { SubmitService } from 'nswag/song';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { PassProjectToModal } from 'src/app/shared/util/models';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-submit-analysis-modal',
@@ -99,7 +100,7 @@ export class SubmitAnalysisModalComponent implements OnInit {
         url: `${this.basePath}`,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
+          Authorization: `Bearer ${environment.userToken}`,
         },
         withCredentials: false,
       },
@@ -131,7 +132,7 @@ export class SubmitAnalysisModalComponent implements OnInit {
         url: `${this.basePath}`,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
+          Authorization: `Bearer ${environment.userToken}`,
         },
         withCredentials: false,
       },

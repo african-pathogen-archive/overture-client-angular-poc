@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Study, StudyService } from 'nswag/song';
 import { BehaviorSubject, Subscription, finalize } from 'rxjs';
 import { PassProjectToModal } from 'src/app/shared/util/models';
+import { environment } from 'src/environments/environment';
 import { ICreateSong, song_inits } from '../../create-songs.helper';
 
 @Component({
@@ -57,7 +58,7 @@ export class StudyModalComponent implements OnInit, OnDestroy {
     this.study.studyId = currentStudy.studyId ?? "";
 
     const sub = this._service
-      .saveStudyUsingPOST(this.study.studyId , this.study, `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`)
+      .saveStudyUsingPOST(this.study.studyId , this.study, `Bearer ${environment.userToken}`)
       .pipe(
         finalize(() => {
           this.saving = false;

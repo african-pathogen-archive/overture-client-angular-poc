@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { ToastService } from 'src/app/services/toast.service';
 import { UploadS3Service } from 'src/app/services/upload-s3.service';
 import { GlobalDataService } from 'src/app/shared/util/global-data-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-publish-analysis',
@@ -52,7 +53,7 @@ export class PublishAnalysisComponent implements OnInit {
       .publishAnalysisUsingPUT(
         this.analysisId,
         this.studyId,
-        `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
+        `Bearer ${environment.userToken}`,
         true
       )
       .subscribe(
@@ -110,8 +111,6 @@ export class PublishAnalysisComponent implements OnInit {
         'song.overture',
         "body",
         true,
-        // `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
-        // true
       )
       .subscribe(
         (event: any) => {

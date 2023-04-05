@@ -24,6 +24,7 @@ import {
 import { SubmitService } from 'nswag/song';
 import { Observable } from 'rxjs';
 import { GlobalDataService } from 'src/app/shared/util/global-data-service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-analysis-upload',
@@ -236,7 +237,7 @@ export class AnalysisUploadComponent implements OnChanges {
       .submitUsingPOST(
         this.studyId,
         this.jsonPayLoad.toString(),
-        `Bearer ${'2860ace0-9d90-478d-920d-a0a5fde1da8b'}`,
+        `Bearer ${environment.userToken}`,
         'response',
         true
       )

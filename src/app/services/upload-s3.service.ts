@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as S3 from 'aws-sdk/clients/s3';
+import * as AWS from 'aws-sdk/global';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadS3Service  {
+
+  baseSubFolder: string = 'data';
 
   constructor() { }
 
@@ -19,7 +22,7 @@ export class UploadS3Service  {
       const params = {
         Bucket: 'sanbi-dmsdata',//BUCKET_NAME
         Key: filePath,
-        Body: file,
+        Body: `${this.baseSubFolder}/${file}`,
         ACL: 'public-read',
         ContentType: contentType,
       };

@@ -9,6 +9,7 @@ export const environment = {
   isMockEnabled: true,
   apiUrl: 'api',
   appThemeName: 'Metronic',
+  userToken: '72c8482e-2435-40ac-8cfb-57c8061cb7a3',
   appPurchaseUrl: '#',
   appHTMLIntegration: '#',
   appPreviewUrl: '#',

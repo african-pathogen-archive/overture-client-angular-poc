@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../modules/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -18,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   addAuthToken(request: HttpRequest<any>) {
-    let token = '2860ace0-9d90-478d-920d-a0a5fde1da8b';
+    let token = environment.userToken;
     // this.authService.getAuthToken().subscribe(res => {
     //   token = res?.toString() ?? '';
     // });
